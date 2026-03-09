@@ -16,7 +16,14 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "Release" CACHE STRING "" FORCE)
 endif()
-set(CMAKE_CXX_FLAGS "-W -Wall")
+
+if(MSVC)
+  # Visual Studio compiler flags
+  set(CMAKE_CXX_FLAGS "/W3")
+else()
+  # GCC/G++ compiler flags
+  set(CMAKE_CXX_FLAGS "-W -Wall")
+endif()
 
 # install destination
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
