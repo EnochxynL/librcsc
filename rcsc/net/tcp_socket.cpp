@@ -38,6 +38,10 @@
 #include <cstdio>
 #include <cerrno>
 
+#ifdef WIN32
+#include <winsock2.h>
+#include <ws2tcpip.h>
+#else
 #ifdef HAVE_SYS_TYPES_H
 #include <sys/types.h> // socket(), getaddrinfo(), freeaddrinfo()
                        // connect(), send(), recv(), sendto(), recvfrom(),
@@ -53,6 +57,7 @@
 #endif
 #ifdef HAVE_NETINET_IN_H
 #include <netinet/in.h> // struct sockaddr_in, struct in_addr, htons
+#endif
 #endif
 
 namespace rcsc {

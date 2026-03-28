@@ -313,8 +313,8 @@ SerializerV2::serialize( std::ostream & os,
 
 /*-------------------------------------------------------------------*/
 std::ostream &
-SerializerV2::SerializerV2::serialize( std::ostream & os,
-                                       const PlayerTypeT & )
+SerializerV2::serialize( std::ostream & os,
+                         const PlayerTypeT & )
 {
     return os;
 }

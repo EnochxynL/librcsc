@@ -32,6 +32,11 @@
 #ifndef RCSC_GEOM_SECTOR2D_H
 #define RCSC_GEOM_SECTOR2D_H
 
+#ifdef WIN32
+#define _USE_MATH_DEFINES
+#include <math.h>
+#endif
+
 #include <rcsc/geom/region_2d.h>
 #include <rcsc/geom/vector_2d.h>
 

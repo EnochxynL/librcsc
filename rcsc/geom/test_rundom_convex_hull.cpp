@@ -36,7 +36,28 @@
 #include <random>
 #include <fstream>
 
+#ifdef WIN32
+#include <windows.h>
+struct timeval {
+    long tv_sec;
+    long tv_usec;
+};
+
+int gettimeofday(struct timeval* tp, void* tzp) {
+    FILETIME ft;
+    GetSystemTimeAsFileTime(&ft);
+    unsigned __int64 tmp = ft.dwHighDateTime;
+    tmp <<= 32;
+    tmp |= ft.dwLowDateTime;
+    tmp /= 10; // convert to microseconds
+    tmp -= 11644473600000000ULL; // convert to UNIX epoch
+    tp->tv_sec = tmp / 1000000;
+    tp->tv_usec = tmp % 1000000;
+    return 0;
+}
+#else
 #include <sys/time.h> // struct timeval, gettimeofday()
+#endif
 
 void
 print_elapsed( const timeval & start,

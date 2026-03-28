@@ -19,7 +19,7 @@ endif()
 
 if(MSVC)
   # Visual Studio compiler flags
-  set(CMAKE_CXX_FLAGS "/W3")
+  set(CMAKE_CXX_FLAGS "/W3 /D_CRT_SECURE_NO_WARNINGS /D_USE_MATH_DEFINES /EHsc")
 else()
   # GCC/G++ compiler flags
   set(CMAKE_CXX_FLAGS "-W -Wall")

@@ -42,10 +42,16 @@
 #include <iostream>
 #include <cstring>
 
+#ifdef WIN32
+#include <winsock2.h>
+#include <ws2tcpip.h>
+#pragma comment(lib, "ws2_32.lib")
+#else
 #include <unistd.h> // select()
 #include <sys/select.h> // select()
 #include <sys/time.h> // select()
 #include <sys/types.h> // select()
+#endif
 
 namespace rcsc {
 

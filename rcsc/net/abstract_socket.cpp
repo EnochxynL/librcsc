@@ -41,6 +41,11 @@
 #include <cstring> // memset(), memcpy()
 #include <cerrno> // errno
 
+#ifdef WIN32
+#include <winsock2.h>
+#include <ws2tcpip.h>
+#pragma comment(lib, "ws2_32.lib")
+#else
 #ifdef HAVE_NETDB_H
 #include <netdb.h> // gethostbyname(), getaddrinfo(), freeaddrinfo()
 #endif
@@ -63,6 +68,7 @@
 #endif
 #ifdef HAVE_NETINET_IN_H
 #include <netinet/in.h> // struct sockaddr_in, struct in_addr, htons
+#endif
 #endif
 
 
@@ -97,6 +103,20 @@ AbstractSocket::~AbstractSocket()
 bool
 AbstractSocket::open( const SocketType type )
 {
+#ifdef WIN32
+    // Initialize Winsock
+    static bool winsock_initialized = false;
+    if ( !winsock_initialized ) {
+        WSADATA wsaData;
+        int wsaErr = WSAStartup( MAKEWORD(2, 2), &wsaData );
+        if ( wsaErr != 0 ) {
+            std::cerr << "(AbstractSocket::open) ***ERROR*** WSAStartup failed with error: " << wsaErr << std::endl;
+            return false;
+        }
+        winsock_initialized = true;
+    }
+#endif
+
 #ifdef HAVE_SOCKET
     switch ( type ) {
     case STREAM_TYPE:
@@ -123,7 +143,9 @@ AbstractSocket::open( const SocketType type )
         return false;
     }
 
+#ifndef WIN32
     ::fcntl( fd(), F_SETFD, FD_CLOEXEC ); // close on exec
+#endif
     return true;
 }
 
@@ -262,6 +284,10 @@ AbstractSocket::connectToPresetAddr()
 int
 AbstractSocket::setNonBlocking()
 {
+#ifdef WIN32
+    u_long mode = 1; // 1 for non-blocking, 0 for blocking
+    return ::ioctlsocket( fd(), FIONBIO, &mode );
+#else
     int flags = ::fcntl( fd(), F_GETFL, 0 );
     if ( flags == -1 )
     {
@@ -269,6 +295,7 @@ AbstractSocket::setNonBlocking()
     }
 
     return ::fcntl( fd(), F_SETFL, O_NONBLOCK | flags );
+#endif
 }
 
 /*-------------------------------------------------------------------*/
@@ -280,7 +307,12 @@ AbstractSocket::close()
 {
     if ( fd() != -1 )
     {
-        int ret = ::close( fd() );
+        int ret = 0;
+#ifdef WIN32
+        ret = ::closesocket( fd() );
+#else
+        ret = ::close( fd() );
+#endif
         M_fd = -1;
         M_peer_address.clear();
         return ret;

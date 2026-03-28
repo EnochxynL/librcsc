@@ -50,7 +50,7 @@ using UInt16 = std::uint16_t;
 //! type of the 32bits integer value
 using Int32 = std::int32_t;
 //! type of the unsigned 32bits integer value
-using UInt32 = std::int32_t;
+using UInt32 = std::uint32_t;
 
 /*!
   \brief max length of color name string.
