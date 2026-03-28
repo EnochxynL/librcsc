@@ -94,3 +94,7 @@ AM_CFLAGS = -Wall -W
 AM_LDFLAGS =
 
 CLEANFILES = *~
+
+# Build the core libtool library in the rcsc subdir when needed by src tools.
+$(top_builddir)/rcsc/librcsc.la:
+	$(MAKE) -C $(top_builddir)/rcsc librcsc.la
