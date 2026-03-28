@@ -41,7 +41,9 @@
 #include <cstring>
 #include <cmath>
 
-#ifdef HAVE_ARPA_INET_H
+#if defined(_WIN32)
+#include <winsock2.h>
+#elif defined(HAVE_ARPA_INET_H)
 #include <arpa/inet.h>
 #endif
 #ifdef HAVE_WINDOWS_H

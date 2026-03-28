@@ -60,9 +60,7 @@ AC_CHECK_LIB([z], [deflate],
 # Checks for header files.
 ##################################################
 
-AC_CHECK_HEADERS([arpa/inet.h],
-                 break,
-                 [AC_MSG_ERROR([*** arpa/inet.h not found ***])])
+AC_CHECK_HEADERS([arpa/inet.h])
 AC_CHECK_HEADERS([fcntl.h],
                  break,
                  [AC_MSG_ERROR([*** fcntl.h not found ***])])
