@@ -150,8 +150,14 @@ UDPSocket::readDatagram( char * buf,
                          const size_t len,
                          HostAddress * from )
 {
+#if defined(_WIN32)
+    using socket_len_t = int;
+#else
+    using socket_len_t = socklen_t;
+#endif
+
     HostAddress::AddrType from_addr;
-    socklen_t from_size = sizeof( HostAddress::AddrType );
+    socket_len_t from_size = sizeof( HostAddress::AddrType );
     int n = ::recvfrom( fd(), buf, len, 0,
                         reinterpret_cast< struct sockaddr * >( &from_addr ),
                         &from_size );
