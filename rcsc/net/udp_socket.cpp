@@ -44,7 +44,9 @@
 #ifdef HAVE_SYS_SOCKET_H
 #include <sys/socket.h>
 #endif
-#ifdef HAVE_NETINET_IN_H
+#if defined(_WIN32)
+#include <winsock2.h>
+#elif defined(HAVE_NETINET_IN_H)
 #include <netinet/in.h> // struct sockaddr_in, struct in_addr, htons
 #endif
 

@@ -64,9 +64,7 @@ AC_CHECK_HEADERS([arpa/inet.h])
 AC_CHECK_HEADERS([fcntl.h],
                  break,
                  [AC_MSG_ERROR([*** fcntl.h not found ***])])
-AC_CHECK_HEADERS([netinet/in.h],
-                 break,
-                 [AC_MSG_ERROR([*** netinet/in.h not found ***])])
+AC_CHECK_HEADERS([netinet/in.h])
 AC_CHECK_HEADERS([netdb.h],
                  break,
                  [AC_MSG_ERROR([*** netdb.h not found ***])])

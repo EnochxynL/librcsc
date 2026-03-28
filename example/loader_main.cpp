@@ -1,5 +1,9 @@
 
+#if defined(_WIN32)
+#include <winsock2.h>
+#else
 #include <netinet/in.h>
+#endif
 #include <iostream>
 #include <fstream>
 #include <rcsc/gz/gzfstream.h>
