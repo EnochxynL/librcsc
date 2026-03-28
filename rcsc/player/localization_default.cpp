@@ -758,7 +758,7 @@ LocalizationDefault::Impl::generatePoints( const WorldModel & wm,
     dist_inc = dist_range / ( dist_loop - 1 );
 
     const double dir_range = dir_error * 2.0;
-    const double circum = 2.0 * ave_dist * M_PI * ( dir_range / 360.0 );
+    const double circum = 2.0 * ave_dist * AngleDeg::PI * ( dir_range / 360.0 );
     double circum_inc = std::max( 0.01, circum / 32.0 );
     const int dir_loop = bound( 2,
                                 static_cast< int >( std::ceil( circum / circum_inc ) ),
