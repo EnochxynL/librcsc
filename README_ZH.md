@@ -6,6 +6,7 @@
 - 安装make等基本构建工具`pacman -S base-devel`
 - 安装编译器工具链`pacman -S mingw-w64-ucrt-x86_64-toolchain`
 - 安装autoconf、automake、libtool构建工具`pacman -S mingw-w64-ucrt-x86_64-autotools`
+- 安装cmake构建工具`mingw-w64-ucrt-x86_64-cmake`
 
 ## 构建
 
