@@ -65,9 +65,7 @@ AC_CHECK_HEADERS([fcntl.h],
                  break,
                  [AC_MSG_ERROR([*** fcntl.h not found ***])])
 AC_CHECK_HEADERS([netinet/in.h])
-AC_CHECK_HEADERS([netdb.h],
-                 break,
-                 [AC_MSG_ERROR([*** netdb.h not found ***])])
+AC_CHECK_HEADERS([netdb.h])
 AC_CHECK_HEADERS([sys/socket.h],
                  break,
                  [AC_MSG_ERROR([*** sys/socket.h not found ***])])

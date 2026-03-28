@@ -41,7 +41,9 @@
 #include <cstring> // memset(), memcpy()
 #include <cerrno> // errno
 
-#ifdef HAVE_NETDB_H
+#if defined(_WIN32)
+#include <winsock2.h>
+#elif defined(HAVE_NETDB_H)
 #include <netdb.h> // gethostbyname(), getaddrinfo(), freeaddrinfo()
 #endif
 #ifdef HAVE_UNISTD_H
