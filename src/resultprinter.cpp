@@ -39,8 +39,10 @@
 
 #include <algorithm>
 #include <filesystem>
+#include <iomanip>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <string>
 #include <cmath>
 #include <cstring>
@@ -57,6 +59,25 @@ struct Point {
           y( 0.0 )
       { }
 };
+
+namespace {
+
+bool parseDateTime( const char * input,
+                    const char * format,
+                    std::tm * out )
+{
+    if ( ! input || ! format || ! out )
+    {
+        return false;
+    }
+
+    *out = std::tm();
+    std::istringstream iss( input );
+    iss >> std::get_time( out, format );
+    return ! iss.fail();
+}
+
+}
 
 class ResultPrinter
     : public rcsc::rcg::Handler {
@@ -174,8 +195,8 @@ ResultPrinter::ResultPrinter( const std::string & input_file )
                               ? input_file
                               : input_file.substr( pos + 1 ) );
 
-    tm t;
-    if ( strptime( base_name.c_str(), "%Y%m%d%H%M", &t ) )
+    std::tm t;
+    if ( parseDateTime( base_name.c_str(), "%Y%m%d%H%M", &t ) )
     {
         t.tm_sec = 0;
         M_game_date = std::mktime( &t );
@@ -353,12 +374,12 @@ ResultPrinter::handleMsg( const int,
             return false;
         }
 
-        tm t;
-        if ( strptime( datetime, "%Y%m%d%H%M%S", &t ) != nullptr )
+        std::tm t;
+        if ( parseDateTime( datetime, "%Y%m%d%H%M%S", &t ) )
         {
             M_game_date = std::mktime( &t );
         }
-        else if ( strptime( datetime, "%Y%m%d%H%M", &t ) != nullptr )
+        else if ( parseDateTime( datetime, "%Y%m%d%H%M", &t ) )
         {
             t.tm_sec = 0;
             M_game_date = std::mktime( &t );
@@ -517,7 +538,7 @@ main( int argc, char** argv )
         // create rcg handler instance
         ResultPrinter printer( file );
 
-        if ( ! parser->parse( filepath, printer ) )
+        if ( ! parser->parse( filepath.string(), printer ) )
         {
             std::cerr << "Failed to parse [" << argv[i] << "]"
                       << std::endl;

@@ -19,6 +19,7 @@
 
 #include <rcsc/gz.h>
 #include <rcsc/rcg.h>
+#include <rcsc/geom/angle_deg.h>
 
 /*
 
@@ -492,10 +493,10 @@ TextPrinter::printPlayer( std::ostream & os,
 
     double body_deg
         = rcsc::rcg::nltohd( player.body_angle )
-        * (180.0 / M_PI);
+        * (180.0 / rcsc::AngleDeg::PI);
     double head_deg
         = rcsc::rcg::nltohd( player.head_angle )
-        * (180.0 / M_PI);
+        * (180.0 / rcsc::AngleDeg::PI);
     head_deg += body_deg;
     while ( head_deg > 180.0 )
     {
