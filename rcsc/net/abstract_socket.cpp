@@ -42,6 +42,9 @@
 #include <cerrno> // errno
 
 #if defined(_WIN32)
+#ifdef socklen_t
+#undef socklen_t
+#endif
 #include <winsock2.h>
 #include <ws2tcpip.h>
 #endif

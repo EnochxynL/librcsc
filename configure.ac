@@ -67,6 +67,7 @@ AC_CHECK_HEADERS([fcntl.h],
 AC_CHECK_HEADERS([netinet/in.h])
 AC_CHECK_HEADERS([netdb.h])
 AC_CHECK_HEADERS([sys/socket.h])
+AC_CHECK_HEADERS([ws2tcpip.h])
 AC_CHECK_HEADERS([sys/time.h],
                  break,
                  [AC_MSG_ERROR([*** sys/time.h not found ***])])
@@ -79,13 +80,18 @@ AC_CHECK_HEADERS([unistd.h],
 ##################################################
 
 AC_CHECK_TYPES(socklen_t,,
-               AC_DEFINE(socklen_t, int, [Define missing socklen_t.]), [
-#if HAVE_SYS_TYPES_H
-# include <sys/types.h>
-#endif
+               if test "x$ac_cv_header_ws2tcpip_h" = "xyes"; then :; else
+                 AC_DEFINE(socklen_t, int, [Define missing socklen_t.])
+               fi, [
 #ifdef _WIN32
 # include <winsock2.h>
-#elif HAVE_SYS_SOCKET_H
+# ifdef HAVE_WS2TCPIP_H
+#  include <ws2tcpip.h>
+# endif
+#elif HAVE_SYS_TYPES_H
+# include <sys/types.h>
+#endif
+#if HAVE_SYS_SOCKET_H
 # include <sys/socket.h>
 #endif
 ])
