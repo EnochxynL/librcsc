@@ -43,7 +43,9 @@
                        // connect(), send(), recv(), sendto(), recvfrom(),
                        // struct sockaddr_in, SOCK_STREAM, SOCK_DGRAM
 #endif
-#ifdef HAVE_SYS_SOCKET_H
+#if defined(_WIN32)
+#include <winsock2.h>
+#elif defined(HAVE_SYS_SOCKET_H)
 #include <sys/socket.h> // socket(), getaddrinfo(), freeaddrinfo()
                         // connect(), send(), recv(), sendto(), recvfrom(),
                         // struct sockaddr_in, SOCK_STREAM, SOCK_DGRAM

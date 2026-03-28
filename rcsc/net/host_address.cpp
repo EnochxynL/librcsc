@@ -38,7 +38,9 @@
 #include <iostream>
 #include <cstring>
 
-#ifdef HAVE_SYS_SOCKET_H
+#if defined(_WIN32)
+#include <winsock2.h>
+#elif defined(HAVE_SYS_SOCKET_H)
 #include <sys/socket.h>
 #endif
 #if defined(_WIN32)

@@ -66,9 +66,7 @@ AC_CHECK_HEADERS([fcntl.h],
                  [AC_MSG_ERROR([*** fcntl.h not found ***])])
 AC_CHECK_HEADERS([netinet/in.h])
 AC_CHECK_HEADERS([netdb.h])
-AC_CHECK_HEADERS([sys/socket.h],
-                 break,
-                 [AC_MSG_ERROR([*** sys/socket.h not found ***])])
+AC_CHECK_HEADERS([sys/socket.h])
 AC_CHECK_HEADERS([sys/time.h],
                  break,
                  [AC_MSG_ERROR([*** sys/time.h not found ***])])
@@ -85,7 +83,12 @@ AC_CHECK_TYPES(socklen_t,,
 #if HAVE_SYS_TYPES_H
 # include <sys/types.h>
 #endif
-#include <sys/socket.h>])
+#ifdef _WIN32
+# include <winsock2.h>
+#elif HAVE_SYS_SOCKET_H
+# include <sys/socket.h>
+#endif
+])
 
 ##################################################
 # Checks for typedefs, structures, and compiler characteristics.
