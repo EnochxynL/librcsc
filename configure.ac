@@ -127,7 +127,9 @@ AX_CXX_COMPILE_STDCXX_17(noext)
 ##################################################
 
 AX_BOOST_BASE([1.41.0])
-AX_BOOST_SYSTEM
+# Boost.System is header-only on modern Boost. Do not require linkable boost_system.
+BOOST_SYSTEM_LIB=""
+AC_SUBST([BOOST_SYSTEM_LIB])
 CPPFLAGS="$CPPFLAGS $BOOST_CPPFLAGS"
 LDFLAGS="$LDFLAGS $BOOST_LDFLAGS"
 

@@ -107,11 +107,15 @@ AC_DEFUN([AX_BOOST_SYSTEM],
                   done
 
             fi
-            if test "x$ax_lib" = "x"; then
-                AC_MSG_ERROR(Could not find a version of the Boost::System library!)
-            fi
+			if test "x$ax_lib" = "x"; then
+				BOOST_SYSTEM_LIB=""
+				AC_SUBST(BOOST_SYSTEM_LIB)
+				AC_MSG_WARN(Could not find a linkable Boost::System library. Continuing with header-only usage.)
+			fi
 			if test "x$link_system" = "xno"; then
-				AC_MSG_ERROR(Could not link against $ax_lib !)
+				BOOST_SYSTEM_LIB=""
+				AC_SUBST(BOOST_SYSTEM_LIB)
+				AC_MSG_WARN(Could not link against $ax_lib. Continuing with header-only usage.)
 			fi
 		fi
 
