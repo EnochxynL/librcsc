@@ -56,6 +56,16 @@ AC_CHECK_LIB([z], [deflate],
               LIBS="-lz $LIBS"],
              [libz="no"])
 
+SOCKET_LIBS=""
+case "$host_os" in
+  mingw*|msys*|cygwin*)
+    AC_CHECK_LIB([ws2_32], [socket],
+                 [SOCKET_LIBS="-lws2_32"],
+                 [AC_MSG_ERROR([*** ws2_32 not found ***])])
+    ;;
+esac
+AC_SUBST([SOCKET_LIBS])
+
 ##################################################
 # Checks for header files.
 ##################################################

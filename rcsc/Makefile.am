@@ -40,7 +40,8 @@ librcsc_la_LIBADD = \
 	monitor/librcsc_monitor.la \
 	player/librcsc_player.la \
 	coach/librcsc_coach.la \
-	trainer/librcsc_trainer.la
+	trainer/librcsc_trainer.la \
+	$(SOCKET_LIBS)
 
 #lib_LTLIBRARIES = librcsc_agent.la
 #
