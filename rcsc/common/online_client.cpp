@@ -42,10 +42,23 @@
 #include <iostream>
 #include <cstring>
 
+#if defined(_WIN32)
+#include <winsock2.h> // select(), fd_set, timeval
+#include <ws2tcpip.h>
+#else
+#ifdef HAVE_UNISTD_H
 #include <unistd.h> // select()
+#endif
+#ifdef HAVE_SYS_SELECT_H
 #include <sys/select.h> // select()
+#endif
+#ifdef HAVE_SYS_TIME_H
 #include <sys/time.h> // select()
+#endif
+#ifdef HAVE_SYS_TYPES_H
 #include <sys/types.h> // select()
+#endif
+#endif
 
 namespace rcsc {
 
