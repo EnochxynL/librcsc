@@ -40,17 +40,15 @@
 
 #if defined(_WIN32)
 #include <winsock2.h>
-#elif defined(HAVE_SYS_SOCKET_H)
+#endif
+
+#ifdef HAVE_SYS_SOCKET_H
 #include <sys/socket.h>
 #endif
-#if defined(_WIN32)
-#include <winsock2.h>
-#elif defined(HAVE_NETINET_IN_H)
+#ifdef HAVE_NETINET_IN_H
 #include <netinet/in.h>
 #endif
-#if defined(_WIN32)
-#include <winsock2.h>
-#elif defined(HAVE_ARPA_INET_H)
+#ifdef HAVE_ARPA_INET_H
 #include <arpa/inet.h>
 #endif
 

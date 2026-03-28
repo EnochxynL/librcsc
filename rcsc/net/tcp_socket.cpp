@@ -38,26 +38,24 @@
 #include <cstdio>
 #include <cerrno>
 
+#if defined(_WIN32)
+#include <winsock2.h>
+#endif
+
 #ifdef HAVE_SYS_TYPES_H
 #include <sys/types.h> // socket(), getaddrinfo(), freeaddrinfo()
                        // connect(), send(), recv(), sendto(), recvfrom(),
                        // struct sockaddr_in, SOCK_STREAM, SOCK_DGRAM
 #endif
-#if defined(_WIN32)
-#include <winsock2.h>
-#elif defined(HAVE_SYS_SOCKET_H)
+#ifdef HAVE_SYS_SOCKET_H
 #include <sys/socket.h> // socket(), getaddrinfo(), freeaddrinfo()
                         // connect(), send(), recv(), sendto(), recvfrom(),
                         // struct sockaddr_in, SOCK_STREAM, SOCK_DGRAM
 #endif
-#if defined(_WIN32)
-#include <winsock2.h>
-#elif defined(HAVE_ARPA_INET_H)
+#ifdef HAVE_ARPA_INET_H
 #include <arpa/inet.h> // inet_addr()
 #endif
-#if defined(_WIN32)
-#include <winsock2.h>
-#elif defined(HAVE_NETINET_IN_H)
+#ifdef HAVE_NETINET_IN_H
 #include <netinet/in.h> // struct sockaddr_in, struct in_addr, htons
 #endif
 
