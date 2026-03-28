@@ -21,7 +21,8 @@ SUBDIRS = \
 
 lib_LTLIBRARIES = librcsc.la
 
-librcsc_la_SOURCES =
+librcsc_la_SOURCES = \
+	librcsc_dummy.cpp
 
 librcsc_la_LIBADD = \
 	geom/librcsc_geom.la \
@@ -58,7 +59,6 @@ librcsc_la_LIBADD = \
 ##	action/librcsc_action_obsolete.la
 
 librcsc_la_LDFLAGS = -version-info 19:0:0 -no-undefined
-librcsc_la_LINK = $(CXXLINK)
 #libXXXX_la_LDFLAGS = -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)
 #    1. Start with version information of `0:0:0' for each libtool library.
 #
