@@ -43,6 +43,7 @@
 
 #if defined(_WIN32)
 #include <winsock2.h>
+#include <ws2tcpip.h>
 #endif
 
 #ifdef HAVE_NETDB_H
@@ -101,7 +102,7 @@ AbstractSocket::~AbstractSocket()
 bool
 AbstractSocket::open( const SocketType type )
 {
-#ifdef HAVE_SOCKET
+#if defined(HAVE_SOCKET) || defined(_WIN32)
     switch ( type ) {
     case STREAM_TYPE:
         M_socket_type = SOCK_STREAM;
@@ -127,7 +128,9 @@ AbstractSocket::open( const SocketType type )
         return false;
     }
 
+#if ! defined(_WIN32)
     ::fcntl( fd(), F_SETFD, FD_CLOEXEC ); // close on exec
+#endif
     return true;
 }
 
@@ -175,7 +178,7 @@ AbstractSocket::setPeerAddress( const char * hostname,
 {
     HostAddress::AddrType dest_addr;
 
-#ifdef HAVE_GETADDRINFO
+#if defined(HAVE_GETADDRINFO) || defined(_WIN32)
     struct addrinfo hints;
     std::memset( &hints, 0, sizeof( hints ) );
     hints.ai_family = AF_INET;
@@ -266,6 +269,12 @@ AbstractSocket::connectToPresetAddr()
 int
 AbstractSocket::setNonBlocking()
 {
+#if defined(_WIN32)
+    u_long non_blocking = 1;
+    return ::ioctlsocket( static_cast< SOCKET >( fd() ),
+                          FIONBIO,
+                          &non_blocking );
+#else
     int flags = ::fcntl( fd(), F_GETFL, 0 );
     if ( flags == -1 )
     {
@@ -273,6 +282,7 @@ AbstractSocket::setNonBlocking()
     }
 
     return ::fcntl( fd(), F_SETFL, O_NONBLOCK | flags );
+#endif
 }
 
 /*-------------------------------------------------------------------*/
@@ -284,7 +294,11 @@ AbstractSocket::close()
 {
     if ( fd() != -1 )
     {
-        int ret = ::close( fd() );
+#if defined(_WIN32)
+    int ret = ::closesocket( static_cast< SOCKET >( fd() ) );
+#else
+    int ret = ::close( fd() );
+#endif
         M_fd = -1;
         M_peer_address.clear();
         return ret;
