@@ -1,3 +1,230 @@
+# lircsc for Ubuntu
+
+CMake方案尚未跑通，是因为宏定义的问题。
+
+https://github.com/hunspell/hunspell/issues/728
+https://stackoverflow.com/questions/62662905/inig-status-error-cannot-find-input-file-makefile
+
+Linux下编译需要LF格式
+
+`dos2unix ./*.*`
+
+其他照旧
+
+<details>
+<summary>示例输出</summary>
+
+```
+enoch@DESKTOP-FLOWX13:/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc$ sudo make install
+Making install in rcsc
+make[1]: 进入目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc”
+Making install in util
+make[2]: 进入目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/util”
+make[3]: 进入目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/util”
+make[3]: 对“install-exec-am”无需做任何事。
+make[3]: 对“install-data-am”无需做任何事。
+make[3]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/util”
+make[2]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/util”
+Making install in geom
+make[2]: 进入目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/geom”
+Making install in triangle
+make[3]: 进入目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/geom/triangle”
+make[4]: 进入目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/geom/triangle”
+make[4]: 对“install-exec-am”无需做任何事。
+make[4]: 对“install-data-am”无需做任何事。
+make[4]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/geom/triangle”
+make[3]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/geom/triangle”
+Making install in .
+make[3]: 进入目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/geom”
+make[4]: 进入目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/geom”
+make[4]: 对“install-exec-am”无需做任何事。
+ /usr/bin/mkdir -p '/usr/local/include/rcsc/geom'
+ /usr/bin/install -c -m 644 angle_deg.h circle_2d.h composite_region_2d.h convex_hull.h delaunay_triangulation.h line_2d.h matrix_2d.h polygon_2d.h ray_2d.h rect_2d.h region_2d.h sector_2d.h size_2d.h segment_2d.h triangle_2d.h triangulation.h vector_2d.h voronoi_diagram.h voronoi_diagram_triangle.h '/usr/local/include/rcsc/geom'
+make[4]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/geom”
+make[3]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/geom”
+make[2]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/geom”
+Making install in gz
+make[2]: 进入目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/gz”
+make[3]: 进入目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/gz”
+make[3]: 对“install-exec-am”无需做任何事。
+ /usr/bin/mkdir -p '/usr/local/include/rcsc/gz'
+ /usr/bin/install -c -m 644 gzcompressor.h gzfstream.h gzfilterstream.h '/usr/local/include/rcsc/gz'
+make[3]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/gz”
+make[2]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/gz”
+Making install in param
+make[2]: 进入目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/param”
+make[3]: 进入目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/param”
+make[3]: 对“install-exec-am”无需做任何事。
+ /usr/bin/mkdir -p '/usr/local/include/rcsc/param'
+ /usr/bin/install -c -m 644 cmd_line_parser.h conf_file_parser.h param_map.h param_parser.h rcss_param_parser.h '/usr/local/include/rcsc/param'
+make[3]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/param”
+make[2]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/param”
+Making install in rcg
+make[2]: 进入目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/rcg”
+make[3]: 进入目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/rcg”
+make[3]: 对“install-exec-am”无需做任何事。
+ /usr/bin/mkdir -p '/usr/local/include/rcsc/rcg'
+ /usr/bin/install -c -m 644 handler.h parser.h parser_v1.h parser_v2.h parser_v3.h parser_v4.h parser_simdjson.h serializer.h serializer_v1.h serializer_v2.h serializer_v3.h serializer_v4.h serializer_v5.h serializer_v6.h serializer_json.h types.h util.h '/usr/local/include/rcsc/rcg'
+make[3]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/rcg”
+make[2]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/rcg”
+Making install in net
+make[2]: 进入目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/net”
+make[3]: 进入目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/net”
+make[3]: 对“install-exec-am”无需做任何事。
+ /usr/bin/mkdir -p '/usr/local/include/rcsc/net'
+ /usr/bin/install -c -m 644 abstract_socket.h host_address.h udp_socket.h tcp_socket.h '/usr/local/include/rcsc/net'
+make[3]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/net”
+make[2]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/net”
+Making install in time
+make[2]: 进入目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/time”
+make[3]: 进入目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/time”
+make[3]: 对“install-exec-am”无需做任何事。
+ /usr/bin/mkdir -p '/usr/local/include/rcsc/time'
+ /usr/bin/install -c -m 644 timer.h '/usr/local/include/rcsc/time'
+make[3]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/time”
+make[2]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/time”
+Making install in ann
+make[2]: 进入目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/ann”
+make[3]: 进入目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/ann”
+make[3]: 对“install-exec-am”无需做任何事。
+ /usr/bin/mkdir -p '/usr/local/include/rcsc/ann'
+ /usr/bin/install -c -m 644 bpn1.h ngnet.h rbf.h sirm.h sirms_model.h '/usr/local/include/rcsc/ann'
+make[3]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/ann”
+make[2]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/ann”
+Making install in clang
+make[2]: 进入目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/clang”
+make[3]: 进入目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/clang”
+make[3]: 对“install-exec-am”无需做任何事。
+ /usr/bin/mkdir -p '/usr/local/include/rcsc/clang'
+ /usr/bin/install -c -m 644 clang_action.h clang_condition.h clang_directive.h clang_info_message.h clang_message.h clang_parser.h clang_token.h clang_unum.h clang.h types.h '/usr/local/include/rcsc/clang'
+make[3]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/clang”
+make[2]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/clang”
+Making install in formation
+make[2]: 进入目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/formation”
+make[3]: 进入目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/formation”
+make[3]: 对“install-exec-am”无需做任何事。
+ /usr/bin/mkdir -p '/usr/local/include/rcsc/formation'
+ /usr/bin/install -c -m 644 formation.h formation_data.h formation_parser.h formation_parser_csv.h formation_parser_json.h formation_parser_static.h formation_parser_v1.h formation_parser_v2.h formation_parser_v3.h formation_dt.h formation_static.h role_type.h '/usr/local/include/rcsc/formation'
+make[3]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/formation”
+make[2]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/formation”
+Making install in color
+make[2]: 进入目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/color”
+make[3]: 进入目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/color”
+make[3]: 对“install-exec-am”无需做任何事。
+ /usr/bin/mkdir -p '/usr/local/include/rcsc/color'
+ /usr/bin/install -c -m 644 rgb_color.h gradation_color_provider.h gray_scale_provider.h thermo_color_provider.h '/usr/local/include/rcsc/color'
+make[3]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/color”
+make[2]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/color”
+Making install in common
+make[2]: 进入目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/common”
+make[3]: 进入目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/common”
+make[3]: 对“install-exec-am”无需做任何事。
+ /usr/bin/mkdir -p '/usr/local/include/rcsc/common'
+ /usr/bin/install -c -m 644 abstract_client.h audio_codec.h audio_memory.h audio_message.h free_message_parser.h freeform_message.h freeform_message_parser.h logger.h offline_client.h online_client.h player_param.h player_type.h say_message.h say_message_parser.h server_param.h soccer_agent.h stamina_model.h team_graphic.h '/usr/local/include/rcsc/common'
+make[3]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/common”
+make[2]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/common”
+Making install in monitor
+make[2]: 进入目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/monitor”
+make[3]: 进入目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/monitor”
+make[3]: 对“install-exec-am”无需做任何事。
+ /usr/bin/mkdir -p '/usr/local/include/rcsc/monitor'
+ /usr/bin/install -c -m 644 monitor_command.h '/usr/local/include/rcsc/monitor'
+make[3]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/monitor”
+make[2]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/monitor”
+Making install in player
+make[2]: 进入目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/player”
+make[3]: 进入目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/player”
+make[3]: 对“install-exec-am”无需做任何事。
+ /usr/bin/mkdir -p '/usr/local/include/rcsc/player'
+ /usr/bin/install -c -m 644 abstract_player_object.h action_effector.h audio_sensor.h ball_object.h body_sensor.h debug_client.h free_message.h fullstate_sensor.h intercept.h intercept_simulator_player.h intercept_simulator_self.h intercept_simulator_self_v17.h intercept_table.h localization.h localization_default.h object_table.h penalty_kick_state.h player_command.h player_agent.h player_config.h player_evaluator.h player_object.h player_predicate.h player_state.h say_message_builder.h see_state.h self_object.h soccer_action.h soccer_intention.h view_area.h view_grid_map.h view_mode.h visual_sensor.h world_model.h '/usr/local/include/rcsc/player'
+make[3]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/player”
+make[2]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/player”
+Making install in coach
+make[2]: 进入目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/coach”
+make[3]: 进入目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/coach”
+make[3]: 对“install-exec-am”无需做任何事。
+ /usr/bin/mkdir -p '/usr/local/include/rcsc/coach'
+ /usr/bin/install -c -m 644 coach_agent.h coach_audio_sensor.h coach_ball_object.h coach_command.h coach_config.h coach_debug_client.h coach_intercept_predictor.h coach_player_object.h coach_visual_sensor.h coach_world_model.h coach_world_state.h player_type_analyzer.h '/usr/local/include/rcsc/coach'
+make[3]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/coach”
+make[2]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/coach”
+Making install in trainer
+make[2]: 进入目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/trainer”
+make[3]: 进入目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/trainer”
+make[3]: 对“install-exec-am”无需做任何事。
+ /usr/bin/mkdir -p '/usr/local/include/rcsc/trainer'
+ /usr/bin/install -c -m 644 trainer_agent.h trainer_command.h trainer_config.h '/usr/local/include/rcsc/trainer'
+make[3]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/trainer”
+make[2]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc/trainer”
+Making install in .
+make[2]: 进入目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc”
+make[3]: 进入目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc”
+ /usr/bin/mkdir -p '/usr/local/lib'
+ /bin/bash ../libtool   --mode=install /usr/bin/install -c   librcsc.la '/usr/local/lib'
+libtool: install: /usr/bin/install -c .libs/librcsc.so.19.0.0 /usr/local/lib/librcsc.so.19.0.0
+libtool: install: (cd /usr/local/lib && { ln -s -f librcsc.so.19.0.0 librcsc.so.19 || { rm -f librcsc.so.19 && ln -s librcsc.so.19.0.0 librcsc.so.19; }; })
+libtool: install: (cd /usr/local/lib && { ln -s -f librcsc.so.19.0.0 librcsc.so || { rm -f librcsc.so && ln -s librcsc.so.19.0.0 librcsc.so; }; })
+libtool: install: /usr/bin/install -c .libs/librcsc.lai /usr/local/lib/librcsc.la
+libtool: finish: PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin:/sbin" ldconfig -n /usr/local/lib
+----------------------------------------------------------------------
+Libraries have been installed in:
+   /usr/local/lib
+
+If you ever happen to want to link against installed libraries
+in a given directory, LIBDIR, you must either use libtool, and
+specify the full pathname of the library, or use the '-LLIBDIR'
+flag during linking and do at least one of the following:
+   - add LIBDIR to the 'LD_LIBRARY_PATH' environment variable
+     during execution
+   - add LIBDIR to the 'LD_RUN_PATH' environment variable
+     during linking
+   - use the '-Wl,-rpath -Wl,LIBDIR' linker flag
+   - have your system administrator add LIBDIR to '/etc/ld.so.conf'
+
+See any operating system documentation about shared libraries for
+more information, such as the ld(1) and ld.so(8) manual pages.
+----------------------------------------------------------------------
+ /usr/bin/mkdir -p '/usr/local/include/rcsc'
+ /usr/bin/install -c -m 644 types.h geom.h gz.h rcg.h factory.h game_mode.h game_time.h math_util.h random.h soccer_math.h timer.h version.h '/usr/local/include/rcsc'
+make[3]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc”
+make[2]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc”
+make[1]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/rcsc”
+Making install in example
+make[1]: 进入目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/example”
+make[2]: 进入目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/example”
+make[2]: 对“install-exec-am”无需做任何事。
+make[2]: 对“install-data-am”无需做任何事。
+make[2]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/example”
+make[1]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/example”
+Making install in src
+make[1]: 进入目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/src”
+make[2]: 进入目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/src”
+ /usr/bin/mkdir -p '/usr/local/bin'
+  /bin/bash ../libtool   --mode=install /usr/bin/install -c rclmscheduler rclmtableprinter rcg2csv rcg2txt rcgrenameteam rcgresultprinter rcgreverse rcgvalidator rcgverconv rcgversion '/usr/local/bin'
+libtool: install: /usr/bin/install -c rclmscheduler /usr/local/bin/rclmscheduler
+libtool: install: /usr/bin/install -c rclmtableprinter /usr/local/bin/rclmtableprinter
+libtool: install: /usr/bin/install -c .libs/rcg2csv /usr/local/bin/rcg2csv
+libtool: install: /usr/bin/install -c .libs/rcg2txt /usr/local/bin/rcg2txt
+libtool: install: /usr/bin/install -c .libs/rcgrenameteam /usr/local/bin/rcgrenameteam
+libtool: install: /usr/bin/install -c .libs/rcgresultprinter /usr/local/bin/rcgresultprinter
+libtool: install: /usr/bin/install -c .libs/rcgreverse /usr/local/bin/rcgreverse
+libtool: install: /usr/bin/install -c .libs/rcgvalidator /usr/local/bin/rcgvalidator
+libtool: install: /usr/bin/install -c .libs/rcgverconv /usr/local/bin/rcgverconv
+libtool: install: /usr/bin/install -c .libs/rcgversion /usr/local/bin/rcgversion
+make[2]: 对“install-data-am”无需做任何事。
+make[2]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/src”
+make[1]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc/src”
+make[1]: 进入目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc”
+make[2]: 进入目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc”
+ /usr/bin/mkdir -p '/usr/local/bin'
+ /usr/bin/install -c librcsc-config librcscenv '/usr/local/bin'
+ /usr/bin/mkdir -p '/usr/local/lib/pkgconfig'
+ /usr/bin/install -c -m 644 librcsc.pc '/usr/local/lib/pkgconfig'
+make[2]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc”
+make[1]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc”
+```
+
+</details>
+
 # librcsc for MSYS2-UCRT64
 
 ## 环境配置
@@ -32,6 +259,7 @@ make -j
 
 <details>
 <summary>示例输出</summary>
+
 ```
 enoch@DESKTOP-FLOWX13 UCRT64 /d/CODING/RoboCup2D/librcsc
 $ make install
