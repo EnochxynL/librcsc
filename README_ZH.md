@@ -1,15 +1,22 @@
 # lircsc for Ubuntu
 
-CMake方案尚未跑通，是因为宏定义的问题。
-
 https://github.com/hunspell/hunspell/issues/728
 https://stackoverflow.com/questions/62662905/inig-status-error-cannot-find-input-file-makefile
 
-Linux下编译需要LF格式
+Linux下编译需要LF格式`dos2unix ./*.*`
 
-`dos2unix ./*.*`
+CMake is not available in Ubuntu 22.04 but works in Ubuntu 24.04，是因为宏定义的问题。
 
-其他照旧
+```
+rm -r build
+cmake -S . -B build -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
+cmake --build build -j
+cmake --install build
+```
+
+Can't uninstall in CMake method.
+
+autotools其他照旧
 
 <details>
 <summary>示例输出</summary>
