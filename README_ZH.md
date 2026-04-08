@@ -24,9 +24,10 @@ rm -r build
 cmake -S . -B build -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
 cmake --build build -j
 cmake --install build
+cmake --build build --target uninstall
 ```
 
-目前在CMake方式构建，缺乏uninstall功能，等我把它写好
+如果你需要构建 example 目录下的示例程序，请在配置时加上 `-DBUILD_EXAMPLE=ON`。
 
 # autotool 方式构建
 

@@ -20,7 +20,8 @@ set(CMAKE_CXX_FLAGS "-W -Wall")
 
 # install destination
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-  set(CMAKE_INSTALL_PREFIX "$ENV{HOME}/local" CACHE PATH "Install destination path" FORCE)
+  # set(CMAKE_INSTALL_PREFIX "$ENV{HOME}/local" CACHE PATH "Install destination path" FORCE)
+  # CMake 在 Linux 上默认前缀通常是 /usr/local ，这段 FORCE 会把默认前缀改成 $HOME/local，而且是写进 cache 的强制覆盖。
 endif()
 
 include(GNUInstallDirs)
@@ -75,6 +76,11 @@ message(STATUS "  INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX}")
 add_subdirectory(rcsc)
 add_subdirectory(src)
 
+option(BUILD_EXAMPLE "Build example code" OFF)
+if(BUILD_EXAMPLE)
+  add_subdirectory(example)
+endif()
+
 # additional installation files
 set(PACKAGE ${PROJECT_NAME})
 set(VERSION ${librcsc_VERSION})
@@ -90,14 +96,24 @@ configure_file(Doxyfile.in Doxyfile @ONLY)
 configure_file(librcsc-config.in librcsc-config @ONLY)
 configure_file(librcscenv.in librcscenv @ONLY)
 configure_file(librcsc.pc.in librcsc.pc @ONLY)
+configure_file(librcsc.spec.in librcsc.spec @ONLY)
+
+configure_file(
+  "${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
+  IMMEDIATE @ONLY
+)
+add_custom_target(uninstall
+  COMMAND "${CMAKE_COMMAND}" -P "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
+)
 
 install(PROGRAMS
   ${CMAKE_CURRENT_BINARY_DIR}/librcsc-config
   ${CMAKE_CURRENT_BINARY_DIR}/librcscenv
-  DESTINATION bin
+  DESTINATION ${CMAKE_INSTALL_BINDIR}
   )
 
 install(FILES
   ${CMAKE_CURRENT_BINARY_DIR}/librcsc.pc
-  DESTINATION lib/pkgconfig
+  DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig
   )

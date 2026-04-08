@@ -55,6 +55,10 @@ set_target_properties(rcsc PROPERTIES
   SOVERSION ${LIBRCSC_SOVERSION}
   )
 
+if(WIN32)
+  target_link_libraries(rcsc PRIVATE ws2_32)
+endif()
+
 # install the library file
 install(TARGETS rcsc
 #  EXPORT librcsc-export # for install(EXPORT)
