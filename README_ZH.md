@@ -43,7 +43,40 @@ Linux下编译需要确保文件都是LF格式`dos2unix ./*.*`
 make -j
 ```
 
-# librcsc 安装
+# CMake 方式安装
+
+CMake 方式也有和上面等价的安装/卸载流程：
+
+- 安装到系统默认路径（通常是`/usr/local`，需要sudo）
+```sh
+cmake -S . -B build -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
+cmake --build build -j
+sudo cmake --install build
+pkg-config --modversion librcsc
+```
+
+```sh
+sudo cmake --build build --target uninstall
+```
+
+- 安装到自定义前缀（不需要sudo）
+```sh
+cmake -S . -B build-local -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$HOME/local"
+cmake --build build-local -j
+cmake --install build-local
+```
+
+如果`pkg-config`默认搜索不到该前缀，可临时执行：
+```sh
+export PKG_CONFIG_PATH="$HOME/local/lib/pkgconfig:$PKG_CONFIG_PATH"
+pkg-config --modversion librcsc
+```
+
+```sh
+cmake --build build-local --target uninstall
+```
+
+# autotool 安装
 
 构建完成后，你可以用`make install`把库安装到它的默认安装位置。
 
