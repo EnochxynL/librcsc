@@ -43,7 +43,11 @@ make -j
 
 # CMake 方式安装
 
-CMake 方式也有和上面等价的安装/卸载流程：
+如果想要安装到其他位置，先重新配置，对于helios-base支持`~/local`和`~/.local`两种路径
+```sh
+cmake -S . -B build-local -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$HOME/local"
+cmake --build build -j
+```
 
 - 安装到系统默认路径（通常是`/usr/local`，需要sudo）
 ```sh
@@ -52,11 +56,18 @@ sudo cmake --install build
 
 现在，可以用`pkg-config --modversion librcsc`来查看这个库的版本号。如果有版本号输出，说明安装已被系统识别。
 
+卸载命令如下
 ```sh
 sudo cmake --build build --target uninstall
 ```
 
 # autotool 安装
+
+如果想要安装到其他位置，先重新配置，对于helios-base支持`~/local`和`~/.local`两种路径
+```sh
+./configure --prefix=$HOME/local
+make -j
+```
 
 构建完成后，你可以用`make install`把库安装到它的默认安装位置。
 
