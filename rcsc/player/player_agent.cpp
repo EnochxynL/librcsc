@@ -1056,15 +1056,33 @@ PlayerAgent::handleTimeout( const int timeout_count,
         return;
     }
 
+
     // check alarm count etc...
-    if ( M_impl->isDecisionTiming( msec_from_sense, timeout_count ) )
+    // if ( M_impl->isDecisionTiming( msec_from_sense, timeout_count ) )
+    // {
+    //     // start decision
+    //     dlog.addText( Logger::SYSTEM,
+    //                   "----- TIMEOUT DECISION !! [%ld]ms from sense_body",
+    //                   msec_from_sense / ServerParam::i().slowDownFactor() );
+    //     action();
+    // }
+    bool dt = M_impl->isDecisionTiming(msec_from_sense, timeout_count);
+
+    if (timeout_count == 1 || timeout_count % 50 == 0
+        || waited_msec >= (int)(0.8 * config().serverWaitSeconds() * 1000))
     {
-        // start decision
-        dlog.addText( Logger::SYSTEM,
-                      "----- TIMEOUT DECISION !! [%ld]ms from sense_body",
-                      msec_from_sense / ServerParam::i().slowDownFactor() );
-        action();
+        std::cout << "[TIMEOUT] waited_msec=" << waited_msec
+                << " thr_msec=" << config().serverWaitSeconds() * 1000
+                << " from_sense_msec=" << msec_from_sense
+                << " count=" << timeout_count
+                << " synchMode=" << ServerParam::i().synchMode()
+                << " decisionTiming=" << dt
+                << std::endl;
     }
+
+    if (dt) action();
+
+
 }
 
 /*-------------------------------------------------------------------*/
@@ -2452,7 +2470,15 @@ PlayerAgent::action()
             dlog.addText( Logger::SYSTEM,
                           "---- send[%s]",
                           str.c_str() );
-            M_client->sendMessage( str.c_str() );
+            // M_client->sendMessage( str.c_str() );
+            int sent = M_client->sendMessage(str.c_str());
+            if (sent <= 0) {
+                std::cout << "[SEND][FAIL] ret=" << sent
+                        << " errno=" << errno
+                        << " msg=" << str
+                        << std::endl;
+            }
+
         }
     }
 

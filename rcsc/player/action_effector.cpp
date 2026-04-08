@@ -448,13 +448,13 @@ ActionEffector::checkCommandCount( const BodySensor & sense )
 
     if ( sense.attentiontoCount() != M_command_counter[PlayerCommand::ATTENTIONTO] )
     {
-        std::cout << M_agent.config().teamName() << ' '
-                  << M_agent.world().self().unum() << ": "
-                  << M_agent.world().time()
-                  << " lost attentionto? at " << M_last_action_time
-                  << " sense=" << sense.attentiontoCount()
-                  << " internal=" << M_command_counter[PlayerCommand::ATTENTIONTO]
-                  << std::endl;
+        // std::cout << M_agent.config().teamName() << ' '
+        //           << M_agent.world().self().unum() << ": "
+        //           << M_agent.world().time()
+        //           << " lost attentionto? at " << M_last_action_time
+        //           << " sense=" << sense.attentiontoCount()
+        //           << " internal=" << M_command_counter[PlayerCommand::ATTENTIONTO]
+        //           << std::endl;
         dlog.addText( Logger::SYSTEM,
                        __FILE__": lost attentionto? sense= %d internal= %d",
                       sense.attentiontoCount(),
