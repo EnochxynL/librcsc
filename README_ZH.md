@@ -1,11 +1,23 @@
-# lircsc for Ubuntu
+# librcsc 在 Ubuntu 上的依赖
 
-https://github.com/hunspell/hunspell/issues/728
-https://stackoverflow.com/questions/62662905/inig-status-error-cannot-find-input-file-makefile
+`sudo apt install libboost-all-dev`
 
-Linux下编译需要LF格式`dos2unix ./*.*`
+# librcsc 在 MSYS2-UCRT64 的依赖
 
-CMake is not available in Ubuntu 22.04 but works in Ubuntu 24.04，是因为宏定义的问题。
+在MSYS2-UCRT64环境下测试成功。环境部署教程：
+- 安装make等基本构建工具`pacman -S base-devel`
+- 安装编译器工具链`pacman -S mingw-w64-ucrt-x86_64-toolchain`
+- 安装autoconf、automake、libtool构建工具`pacman -S mingw-w64-ucrt-x86_64-autotools`
+- 安装cmake构建工具`mingw-w64-ucrt-x86_64-cmake`
+
+对于本项目，需要Boost库，因此安装
+```sh
+pacman -S mingw-w64-ucrt-x86_64-boost
+```
+
+# CMake 方式构建
+
+CMake方式在Ubuntu 22.04失效，但在Ubuntu 24.04生效，是因为宏定义的问题。但是autotools在两个版本都有效。但是还是推荐使用Ubuntu 24.04构建
 
 ```
 rm -r build
@@ -14,12 +26,34 @@ cmake --build build -j
 cmake --install build
 ```
 
-Can't uninstall in CMake method.
+目前在CMake方式构建，缺乏uninstall功能，等我把它写好
 
-autotools其他照旧
+# autotool 方式构建
+
+- https://github.com/hunspell/hunspell/issues/728
+- https://stackoverflow.com/questions/62662905/inig-status-error-cannot-find-input-file-makefile
+
+Linux下编译需要确保文件都是LF格式`dos2unix ./*.*`
+
+在根目录执行命令以构建库：
+```
+./bootstrap
+./configure --disable-unit-test
+make -j
+```
+
+# librcsc 安装
+
+构建完成后，你可以用`make install`把库安装到它的默认安装位置。
+
+现在，可以用`pkg-config --modversion librcsc`来查看这个库的版本号。如果有版本号输出，说明安装已被系统识别。
+
+这个库也可以轻而易举地用`make uninstall`卸载。
+
+Ubuntu会把它安装在`/usr/local`下。
 
 <details>
-<summary>示例输出</summary>
+<summary>Ubuntu 24.04示例输出</summary>
 
 ```
 enoch@DESKTOP-FLOWX13:/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc$ sudo make install
@@ -232,40 +266,10 @@ make[1]: 离开目录“/media/enoch/DISK/CODING/RoboCup2D/Touhoku2D/librcsc”
 
 </details>
 
-# librcsc for MSYS2-UCRT64
-
-## 环境配置
-
-在MSYS2-UCRT64环境下测试成功。环境部署教程：
-- 安装make等基本构建工具`pacman -S base-devel`
-- 安装编译器工具链`pacman -S mingw-w64-ucrt-x86_64-toolchain`
-- 安装autoconf、automake、libtool构建工具`pacman -S mingw-w64-ucrt-x86_64-autotools`
-- 安装cmake构建工具`mingw-w64-ucrt-x86_64-cmake`
-
-## 构建
-
-The latest librcsc depends on the following libraries:
- - C++17
- - Boost 1.41 or later https://www.boost.org/
- - (optional) Doxygen
- - (optional) Graphviz
-
-对于本项目，需要Boost库，因此安装
-```sh
-pacman -S mingw-w64-ucrt-x86_64-boost
-```
-
-在根目录执行命令以构建库：
-```
-./bootstrap
-./configure --disable-unit-test
-make -j
-```
-
-构建完成后，你可以用`make install`把库安装到它的默认安装位置。和Ubuntu的位置`/usr/local`不同，MSYS2-UCRT会把它安装在`/ucrt64/lib`和`/ucrt64/bin`和`/ucrt64/include`下。
+MSYS2-UCRT会把它安装在`/ucrt64/lib`和`/ucrt64/bin`和`/ucrt64/include`下。
 
 <details>
-<summary>示例输出</summary>
+<summary>MSYS2-UCRT64示例输出</summary>
 
 ```
 enoch@DESKTOP-FLOWX13 UCRT64 /d/CODING/RoboCup2D/librcsc
@@ -465,40 +469,7 @@ make[1]: Leaving directory '/d/CODING/RoboCup2D/librcsc'
 
 </details>
 
-实际发生了这些事：
-
-1. 安装前缀是 /ucrt64  
-2. 头文件被分模块安装到了 /ucrt64/include/rcsc/...  
-3. 核心库被安装到了：
-   - /ucrt64/lib/librcsc.dll.a（导入库，给链接器用）
-   - /ucrt64/bin/librcsc-19.dll（运行时动态库）
-   - /ucrt64/lib/librcsc.la（libtool 元数据）
-
-4. 工具程序被安装到了 /ucrt64/bin：
-   - rclmscheduler.exe
-   - rclmtableprinter.exe
-   - rcg2csv.exe
-   - rcg2txt.exe
-   - rcgrenameteam.exe
-   - rcgresultprinter.exe
-   - rcgreverse.exe
-   - rcgvalidator.exe
-   - rcgverconv.exe
-   - rcgversion.exe
-
-5. 额外脚本和开发元数据也安装了：
-   - /ucrt64/bin/librcsc-config
-   - /ucrt64/bin/librcscenv
-   - /ucrt64/lib/pkgconfig/librcsc.pc
-
-6. example 目录没有安装任何东西  
-日志里的 Nothing to be done for install-exec-am/install-data-am 表示该子目录没有可安装目标，或者目标本身是 noinst，仅参与构建不参与安装。
-
-现在，可以用`pkg-config --modversion librcsc`来查看这个库的版本号。如果有版本号输出，说明安装已被系统识别。
-
-这个库也可以轻而易举地用`make uninstall`卸载。
-
-## 使用
+# librcsc 使用
 
 下面是一个调用库的最小范例。
 ```cpp
