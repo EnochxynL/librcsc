@@ -19,12 +19,10 @@ pacman -S mingw-w64-ucrt-x86_64-boost
 
 CMake方式在Ubuntu 22.04失效，但在Ubuntu 24.04生效，是因为宏定义的问题。但是autotools在两个版本都有效。但是还是推荐使用Ubuntu 24.04构建
 
-```
+```sh
 rm -r build
 cmake -S . -B build -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
 cmake --build build -j
-cmake --install build
-cmake --build build --target uninstall
 ```
 
 如果你需要构建 example 目录下的示例程序，请在配置时加上 `-DBUILD_EXAMPLE=ON`。
@@ -49,31 +47,13 @@ CMake 方式也有和上面等价的安装/卸载流程：
 
 - 安装到系统默认路径（通常是`/usr/local`，需要sudo）
 ```sh
-cmake -S . -B build -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
-cmake --build build -j
 sudo cmake --install build
-pkg-config --modversion librcsc
 ```
+
+现在，可以用`pkg-config --modversion librcsc`来查看这个库的版本号。如果有版本号输出，说明安装已被系统识别。
 
 ```sh
 sudo cmake --build build --target uninstall
-```
-
-- 安装到自定义前缀（不需要sudo）
-```sh
-cmake -S . -B build-local -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$HOME/local"
-cmake --build build-local -j
-cmake --install build-local
-```
-
-如果`pkg-config`默认搜索不到该前缀，可临时执行：
-```sh
-export PKG_CONFIG_PATH="$HOME/local/lib/pkgconfig:$PKG_CONFIG_PATH"
-pkg-config --modversion librcsc
-```
-
-```sh
-cmake --build build-local --target uninstall
 ```
 
 # autotool 安装
