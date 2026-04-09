@@ -1057,6 +1057,16 @@ PlayerAgent::handleTimeout( const int timeout_count,
     }
 
     // check alarm count etc...
+    if (timeout_count == 1 || timeout_count % 50 == 0
+        || waited_msec >= (int)(0.8 * config().serverWaitSeconds() * 1000))
+    {
+        std::cout << "[TIMEOUT] waited_msec=" << waited_msec
+                << " thr_msec=" << config().serverWaitSeconds() * 1000
+                << " from_sense_msec=" << msec_from_sense
+                << " count=" << timeout_count
+                << " synchMode=" << ServerParam::i().synchMode()
+                << std::endl;
+    }
     if ( M_impl->isDecisionTiming( msec_from_sense, timeout_count ) )
     {
         // start decision

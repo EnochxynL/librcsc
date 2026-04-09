@@ -135,6 +135,10 @@ OnlineClient::run( SoccerAgent * agent )
             // no meesage. timeout.
             waited_msec += intervalMSec();
             ++timeout_count;
+            if (waited_msec % 1000 == 0) { // 每累计 1s 打一次
+                std::cout << "[NET][SELECT] timeout waited=" << waited_msec
+                        << " count=" << timeout_count << std::endl;
+            }
             handleTimeout( agent, timeout_count, waited_msec );
         }
         else
@@ -215,7 +219,13 @@ OnlineClient::receiveMessage()
     }
 
     int n = M_socket->readDatagram( msg, MAX_MESG );
-
+    
+    if (n <= 0) {
+        std::cout << "[RECV] n=" << n
+                << " errno=" << errno
+                << " fd=" << M_socket->fd()
+                << std::endl;
+    }
     if ( n > 0 )
     {
         decompress( msg, n );
