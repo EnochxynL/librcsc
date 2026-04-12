@@ -1,19 +1,8 @@
-# librcsc 在 Ubuntu 上的依赖
+# librcsc 的依赖
 
-`sudo apt install libboost-all-dev`
-
-# librcsc 在 MSYS2-UCRT64 的依赖
-
-在MSYS2-UCRT64环境下测试成功。环境部署教程：
-- 安装make等基本构建工具`pacman -S base-devel`
-- 安装编译器工具链`pacman -S mingw-w64-ucrt-x86_64-toolchain`
-- 安装autoconf、automake、libtool构建工具`pacman -S mingw-w64-ucrt-x86_64-autotools`
-- 安装cmake构建工具`mingw-w64-ucrt-x86_64-cmake`
-
-对于本项目，需要Boost库，因此安装
-```sh
-pacman -S mingw-w64-ucrt-x86_64-boost
-```
+对于本项目，需要Boost库。
+- 在 Ubuntu 24.04 是`sudo apt install libboost-all-dev`
+- 在 Windows MSYS2 UCRT64 是`pacman -S mingw-w64-ucrt-x86_64-boost`
 
 # CMake 方式构建
 
@@ -27,27 +16,7 @@ cmake --build build -j
 
 如果你需要构建 example 目录下的示例程序，请在配置时加上 `-DBUILD_EXAMPLE=ON`。
 
-# autotool 方式构建
-
-- https://github.com/hunspell/hunspell/issues/728
-- https://stackoverflow.com/questions/62662905/inig-status-error-cannot-find-input-file-makefile
-
-Linux下编译需要确保文件都是LF格式`dos2unix ./*.*`
-
-在根目录执行命令以构建库：
-```
-./bootstrap
-./configure --disable-unit-test
-make -j
-```
-
 # CMake 方式安装
-
-如果想要安装到其他位置，先重新配置，对于helios-base支持`~/local`和`~/.local`两种路径
-```sh
-cmake -S . -B build-local -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$HOME/local"
-cmake --build build -j
-```
 
 - 安装到系统默认路径（通常是`/usr/local`，需要sudo）
 ```sh
@@ -61,7 +30,36 @@ sudo cmake --install build
 sudo cmake --build build --target uninstall
 ```
 
-# autotool 安装
+## CMake 方式安装（自定义位置）
+
+如果想要安装到其他位置，先重新配置，对于helios-base支持自动发现`~/local`和`~/.local`两种路径，其他路径需要手动指定库为位置
+```sh
+rm -r build
+cmake -S . -B build-local -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="$HOME/local"
+cmake --build build -j
+sudo cmake --install build
+pkg-config --modversion librcsc
+```
+
+# 附录
+
+autotool 方式已经被我淘汰！这个方法对大家上手有点难，且不优雅！
+
+## autotool 方式构建
+
+- https://github.com/hunspell/hunspell/issues/728
+- https://stackoverflow.com/questions/62662905/inig-status-error-cannot-find-input-file-makefile
+
+Linux下编译需要确保文件都是LF格式`dos2unix ./*.*`
+
+在根目录执行命令以构建库：
+```
+./bootstrap
+./configure --disable-unit-test
+make -j
+```
+
+## autotool 方式安装
 
 如果想要安装到其他位置，先重新配置，对于helios-base支持`~/local`和`~/.local`两种路径
 ```sh
@@ -494,7 +492,7 @@ make[1]: Leaving directory '/d/CODING/RoboCup2D/librcsc'
 
 </details>
 
-# librcsc 使用
+## librcsc 使用
 
 下面是一个调用库的最小范例。
 ```cpp
